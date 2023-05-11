@@ -1,5 +1,7 @@
 name: INT
 channels:
+  - conda-forge
+  - anaconda
   - defaults
 dependencies:
   - appdirs=1.4.4=pyhd3eb1b0_0
