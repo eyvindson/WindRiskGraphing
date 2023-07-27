@@ -73,6 +73,10 @@ show_NPV_plot_interactive(OCCUR=["LL", "LH"], OBJECT=["NPV", "CVAR"], PLANNED=["
 #Example GUI output:
 ![GUI Output](output_plot.png)
 
+
+## NOTE:
+When using the [binder](https://mybinder.org/v2/gh/eyvindson/WindRiskGraphing/HEAD?labpath=INTERACT.ipynb) there may be issues with how the interactive  component is presented. When pressing the radio buttons or the check boxes, new figures may be presented in the 'log' of the binder. 
+
 ## Contributors
 
 - [Kyle Eyvindson](https://github.com/eyvindson) - Project Developer
