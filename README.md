@@ -17,7 +17,7 @@ To use this plotting tool, ensure you have the following Python libraries instal
 ## How to Use
 
 1. Ensure all the required libraries are installed.
-2. Download the `show_Period_plot_interactive` and `show_NPV_plot_interactive` functions from this repository.
+2. Download the entire package to your desktop or virtual machine, including the folders holding the optimized results (the "results" folder), the python code containing the plotting functions, and the ipynb in the base folder.repository.
 3. Import the functions into your Python script or Jupyter Notebook.
 4. Use the functions to generate interactive plots for your data.
 
@@ -29,10 +29,10 @@ This function generates a set of six interactive plots showing the Kernel Densit
 
 #### Parameters:
 
-- `MMT` (list): A list of strings representing different Max-Min scenarios (e.g., "LL", "HL", "MM", "ML", "LH").
-- `SUVT` (list): A list of strings representing different salvage values (e.g., "5", "10", "15", "20").
-- `plotts` (list): A list of integers representing indices of variables to be plotted.
-- `EXTRA` (string): A string representing extra information for the data files.
+- `OCCUR` (list): A list of strings representing different scenarios for the occurance of wind intensity and frequency (e.g., "LL", "HL", "MM", "ML", "LH").
+- `OBJECT` (list): A list representing which objective the user wishes to present.
+- `PLANNED` (list): A list of strings representing different scenarios used in the optimization for wind intensity and frequency
+- `SALVAGE` (string): A string representing the assumed salvage price used.
 
 ### Function: `show_NPV_plot_interactive`
 
@@ -40,10 +40,10 @@ This function generates an interactive plot showing the Kernel Density Estimatio
 
 #### Parameters:
 
-- `MMT` (list): A list of strings representing different Max-Min scenarios (e.g., "LL", "HL", "MM", "ML", "LH").
-- `SUVT` (list): A list of strings representing different salvage values (e.g., "5", "10", "15", "20").
-- `plotts` (list): A list of integers representing indices of variables to be plotted.
-- `EXTRA` (string): A string representing extra information for the data files.
+- `OCCUR` (list): A list of strings representing different scenarios for the occurance of wind intensity and frequency (e.g., "LL", "HL", "MM", "ML", "LH").
+- `OBJECT` (list): A list representing which objective the user wishes to present.
+- `PLANNED` (list): A list of strings representing different scenarios used in the optimization for wind intensity and frequency
+- `SALVAGE` (string): A string representing the assumed salvage price used.
 
 ### Graphical User Interface (GUI)
 
@@ -62,10 +62,10 @@ To use the GUI:
 from my_plotting_functions import show_Period_plot_interactive, show_NPV_plot_interactive
 
 # Example usage of show_Period_plot_interactive
-show_Period_plot_interactive(MMT=["LL", "LH"], SUVT=["5", "10", "15"], plotts=[0, 1, 2], EXTRA="_example")
+show_Period_plot_interactive(OCCUR=["LL", "LH"], OBJECT=["NPV", "CVAR"], plotts=[0, 4], EXTRA="_example")
 
 # Example usage of show_NPV_plot_interactive
-show_NPV_plot_interactive(MMT=["LL", "LH"], SUVT=["5", "10", "15"], plotts=[0, 1, 2], EXTRA="_example")
+show_NPV_plot_interactive(OCCUR=["LL", "LH"], SUVT=["5", "10", "15"], plotts=[0, 1, 2], EXTRA="_example")
 ```
 
 ## Contributors
