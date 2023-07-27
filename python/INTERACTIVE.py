@@ -1,4 +1,4 @@
-def show_Period_plot_interactive(MMT,SUVT,plotts,EXTRA):
+def show_Period_plot_interactive(OCCUR,OBJECT,PLANNED,SALVAGE):
     from matplotlib.lines import Line2D
     import numpy as np
     import pandas as pd
@@ -23,8 +23,8 @@ def show_Period_plot_interactive(MMT,SUVT,plotts,EXTRA):
     legend_ax = plt.subplot2grid((5, 2), (4, 0), colspan=1)
     legend_ax2 = plt.subplot2grid((5, 2), (4, 1), colspan=1)
     custom_lines2 = []
-    for MM in MMT:
-        for SUV in SUVT:
+    for MM in OCCUR:
+        for OBJ in OBJECT:
             if MM == "LL":
                 ls = "solid"
             elif MM == "LH":
@@ -36,14 +36,14 @@ def show_Period_plot_interactive(MMT,SUVT,plotts,EXTRA):
             elif MM == "HL":
                 ls = (0, (1,10))
                 
-            colors = ["red","blue","green","black","orange"]
-            for lm in plotts:
-                t11 = pd.read_csv(path+rs+files+"unsolved_EF_INCOME_"+var[lm]+SUV+EXTRA+".csv")
+            colors = {"LL":"red","HL":"blue","ML":"green","MM":"black","LH":"orange"}
+            for lm in PLANNED:
+                t11 = pd.read_csv(path+rs+files+"unsolved_EF_INCOME_"+vardic[lm]+OBJ+SALVAGE+".csv")
                 t11['EF_YEAR']=t11['EF_YEAR'].str[0:4]
                 YR= [str(2016 + 5*i) for i in range(0,6)]
                 t = [ax1,ax2,ax3,ax4,ax5,ax6]
                 check = []
-                t1 = pd.read_csv(path+rs+files+"unsolved_EF_"+var[lm]+SUV+EXTRA+".csv")
+                t1 = pd.read_csv(path+rs+files+"unsolved_EF_"+vardic[lm]+OBJ+SALVAGE+".csv")
                 for i in range(0,6):
                     (t11.set_index("EF_YEAR").loc[YR[i]][["EF_AVG_NPV_unsolved_"+MM]]/AREA).plot.kde(alpha = 0.5,ax=t[i],color=colors[lm],linestyle=ls)
                     xmin1, xmax1 = t[i].get_xlim()
@@ -80,20 +80,20 @@ def show_Period_plot_interactive(MMT,SUVT,plotts,EXTRA):
                     t[i].get_legend().remove()
                     t[i].set_title(titles[i])
         custom_lines2 = custom_lines2 + [plt.Line2D([0], [0], color="black", linestyle=ls)]
-        legend_ax.plot([], [])#, label=f"{MM}-{SUV}", linestyle=ls, color=colors[lm])
+        legend_ax.plot([], [])
         legend_ax2.plot([], [])
     
-    custom_lines = [plt.Line2D([0], [0], color=colors[i], lw=4) for i in plotts]
+    custom_lines = [plt.Line2D([0], [0], color=colors[i], lw=4) for i in PLANNED]
      
-    #legend_ax.legend(loc='left', ncol=len(plotts), fontsize='medium', frameon=True)
+    #legend_ax.legend(loc='left', ncol=len(PLANNED), fontsize='medium', frameon=True)
         
-    legend_ax.legend(custom_lines, [var[i] for i in plotts], fontsize="large",loc="upper left",bbox_to_anchor=(0, 0.9),title ="Planned", ncol=len(plotts))
-    legend_ax2.legend(custom_lines2, [vardic[i] for i in MMT],fontsize="large", loc="upper left",bbox_to_anchor=(0,0.9),title="Occurred", ncol=len(MMT))
+    legend_ax.legend(custom_lines, [vardic[i] for i in PLANNED], fontsize="large",loc="upper left",bbox_to_anchor=(0, 0.9),title ="Planned", ncol=len(PLANNED))
+    legend_ax2.legend(custom_lines2, [vardic[i] for i in OCCUR],fontsize="large", loc="upper left",bbox_to_anchor=(0,0.9),title="Occurred", ncol=len(OCCUR))
     legend_ax.axis('off')  # Turn off axes for the legend subplot
     legend_ax2.axis('off')
     plt.show()    
 
-def show_NPV_plot_interactive(MMT, SUVT, plotts, EXTRA):
+def show_NPV_plot_interactive(OCCUR, OBJECT, PLANNED, SALVAGE):
     import matplotlib.pyplot as plt
     import pandas as pd
 
@@ -104,7 +104,7 @@ def show_NPV_plot_interactive(MMT, SUVT, plotts, EXTRA):
     vardic ={"LL":'Low_Low', "HL":'High_Low', "ML":'Mod_Low', "MM":'Mod_Mid', "LH":'Low_High'}
     fig, ax = plt.subplots(figsize=(6, 6), dpi=100)
     custom_lines2= []
-    for MM in MMT:
+    for MM in OCCUR:
         if MM == "LL":
             ls = "solid"
         elif MM == "LH":
@@ -115,25 +115,25 @@ def show_NPV_plot_interactive(MMT, SUVT, plotts, EXTRA):
             ls = "dashdot"
         elif MM == "HL":
             ls = (0, (1,6))
-        for SUV in SUVT:
-            colors = ["red", "blue", "green", "black", "orange"]
+        for OBJ in OBJECT:
+            colors = {"LL":"red","HL":"blue","ML":"green","MM":"black","LH":"orange"}
 
-            for lm in plotts:
-                t1 = pd.read_csv(path + rs + files + "unsolved_EF_" + var[lm] + SUV + EXTRA + ".csv")
+            for lm in PLANNED:
+                t1 = pd.read_csv(path + rs + files + "unsolved_EF_" + vardic[lm] + OBJ + SALVAGE + ".csv")
                 (t1[VARI + MM] / AREA).plot.kde(ax=ax, alpha=0.5, color=colors[lm], linestyle=ls)
                 ax.set_title("Net Present Value")
-                custom_lines = [plt.Line2D([0], [0], color=colors[i], lw=4) for i in plotts]
+                custom_lines = [plt.Line2D([0], [0], color=colors[i], lw=4) for i in PLANNED]
                 ax.plot([t1[VARI + MM].mean() / AREA], [0], marker="x", color=colors[lm])
-                ax.legend(custom_lines, [var[i] for i in plotts], bbox_to_anchor=(1.3, 1.0))
+                ax.legend(custom_lines, [i for i in PLANNED], bbox_to_anchor=(1.3, 1.0))
         
         custom_lines2 = custom_lines2 + [plt.Line2D([0], [0], color="black", linestyle=ls)]
                 
-    first_legend = ax.legend(custom_lines, [var[i] for i in plotts], bbox_to_anchor=(1.3, 1.0),title ="Planned")
+    first_legend = ax.legend(custom_lines, [vardic[i] for i in PLANNED], bbox_to_anchor=(1.3, 1.0),title ="Planned")
 
     # Add the legend manually to the Axes.
     ax.add_artist(first_legend)
     
-    ax.legend(custom_lines2, [vardic[i] for i in MMT], bbox_to_anchor=(1.3, 0.5),title="Occurred")
+    ax.legend(custom_lines2, [vardic[i] for i in OCCUR], bbox_to_anchor=(1.3, 0.5),title="Occurred")
 
     ax.set_ylim(bottom=0)
     plt.show()
@@ -185,10 +185,11 @@ def show_GUI():
 
     def on_change(change):
         clear_output()
-        variables = [dictvar[i] for i in [checkbox.description for checkbox in checkboxes if checkbox.value]]
+        variables = [i for i in [checkbox.description for checkbox in checkboxes if checkbox.value]]
         obj_variables = ["_SALVAGE_" + i for i in [checkbox.description for checkbox in OBJboxes if checkbox.value]]
         display(widgets.HBox([graph_select, salvage_select, obj_checkboxes_container, checkboxes_container_OUTCOME, checkboxes_container]))
         variablesOUTCOME = [i for i in [checkbox.description for checkbox in checkboxesOUTCOME if checkbox.value]]
+
         global Graph
         if graph_select.value == "Net Present Value":
             Graph = show_NPV_plot_interactive
@@ -223,5 +224,4 @@ def show_GUI():
     ])
 
     display(widgets.HBox([graph_select, salvage_select, obj_checkboxes_container, checkboxes_container_OUTCOME, checkboxes_container]))
-    Graph(["LL","LH"],
-          ["_SALVAGE_" + i for i in [checkbox.description for checkbox in OBJboxes if checkbox.value]], [dictvar[i] for i in [checkbox.description for checkbox in checkboxes if checkbox.value]], "_" + salvage_select.value + ".0")
+    Graph(["LL","LH"],["_SALVAGE_" + i for i in [checkbox.description for checkbox in OBJboxes if checkbox.value]], [i for i in [checkbox.description for checkbox in checkboxes if checkbox.value]], "_" + salvage_select.value + ".0")
