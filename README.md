@@ -79,4 +79,4 @@ show_NPV_plot_interactive(OCCUR=["LL", "LH"], OBJECT=["NPV", "CVAR"], PLANNED=["
 
 ## License
 
-This project is licensed under the [MIT License](LICENSE).
+This project is licensed under the [Creative Commons Zero v1.0 Universal](LICENSE).
