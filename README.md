@@ -2,7 +2,7 @@
 
 ## Overview
 
-This interactive plotting tool provides visualizations for Net Present Value (NPV) and Periodic Income scenarios based on different combinations of scenarios and objectives. The tool leverages Matplotlib and Pandas libraries to create interactive graphs that allow users to explore and analyze various planning outcomes.
+This interactive plotting tool provides visualizations a selection of wind risk scenarios used in a draft manuscript exploring the potential of using stochastic programming for wind risk planning. We explore the trade-off between maximizing Net Present Value (NPV) and ensuring the even flow of periodic income. The tool leverages Matplotlib and Pandas libraries to create interactive graphs that allow users to explore and analyze various planning outcomes.
 
 ## Requirements
 
@@ -55,6 +55,8 @@ To use the GUI:
 2. Select the variables and scenarios you want to visualize using the provided checkboxes and radio buttons.
 3. The interactive plot will be automatically generated based on your selections.
 
+The radio buttons and the check buttons allow for changes in what is explored. The specific scenarios and management objectives are defined in the draft manuscript. 
+
 ## Example Usage
 
 ```python
@@ -62,11 +64,14 @@ To use the GUI:
 from my_plotting_functions import show_Period_plot_interactive, show_NPV_plot_interactive
 
 # Example usage of show_Period_plot_interactive
-show_Period_plot_interactive(OCCUR=["LL", "LH"], OBJECT=["NPV", "CVAR"], plotts=[0, 4], EXTRA="_example")
+show_Period_plot_interactive(OCCUR=["LL", "LH"], OBJECT=["NPV", "CVAR"], PLANNED=["LL", "LH"], SALVAGE="_5.0")
 
 # Example usage of show_NPV_plot_interactive
-show_NPV_plot_interactive(OCCUR=["LL", "LH"], SUVT=["5", "10", "15"], plotts=[0, 1, 2], EXTRA="_example")
+show_NPV_plot_interactive(OCCUR=["LL", "LH"], OBJECT=["NPV", "CVAR"], PLANNED=["LL", "LH"], SALVAGE="_5.0")
 ```
+
+#Example GUI output:
+![GUI Output](output_plot.png)
 
 ## Contributors
 
