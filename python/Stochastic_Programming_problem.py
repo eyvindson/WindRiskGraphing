@@ -29,7 +29,7 @@ warnings.filterwarnings('ignore')
 
 #TODO -- Get cluster information and enable its use.
 
-Results_folder = "./Results/"
+Results_folder = "./results/"
 
 import numpy as np
 import pandas as pd
