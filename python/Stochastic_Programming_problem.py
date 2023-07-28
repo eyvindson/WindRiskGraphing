@@ -3,31 +3,16 @@ from pyomo.environ import *
 import argparse
 from pyomo.opt import SolverStatus, TerminationCondition
 import pandas as pd
-import time
 import pyutilib.services
 import pickle
 import random
 import sqlite3
-import itertools
 import copy
-import matplotlib.pyplot as plt
 import numpy as np
-from samternary.ternary import Ternary
-import multiprocessing as mp
-import pathos as pmp
-import dill
-from pathos.multiprocessing import ProcessingPool as Pool
-import copy
-import pandas as pd
-import numpy as np
-import statsmodels.api as sm
 import random
-import statsmodels.formula.api as smf
 
 import warnings
 warnings.filterwarnings('ignore')
-
-#TODO -- Get cluster information and enable its use.
 
 Results_folder = "./results/"
 
@@ -118,7 +103,7 @@ if __name__ == "__main__":
         def __init__(self):
             c = 0
             
-            data_opt =  pd.read_csv("./Data/alldata2.csv")
+            data_opt =  pd.read_csv("./Data/WindRisk.csv")
             data_opt['branch'] = [int(str(i)[-2:]) for i in data_opt['id']]
             data_opt['id'] = [int(str(i)[:-2]) for i in data_opt['id']]
             
