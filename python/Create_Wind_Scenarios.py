@@ -44,7 +44,7 @@ def create_scenario_replicates(data_opt, NUM_SCENARIOS, VV):
     return all_data
 
 # PART 1 - Extract all data from databases -- not needed if already performed (also need access to databases)
-file_path = "./Data/alldata2.csv"
+file_path = "./Data/WindRisk.csv"
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
@@ -99,7 +99,7 @@ if __name__ == "__main__":
         AREA = all_data2.loc[slice(None),0,2016,0]['AREA']
         all_data2 = all_data2.fillna(0)
         
-        all_data2.to_csv("./Data/alldata2.csv")
+        all_data2.to_csv("./Data/WindRisk.csv")
         
     else:
         print("Skipping extraction from databases")
@@ -124,7 +124,7 @@ if __name__ == "__main__":
     print(len(Low_High) + len(Mod_Mid) + len(High_Low) + len(Mod_Low) + len(Low_Low))
     
     # Data processing for the sets of scenarios
-    data_opt = pd.read_csv("./Data/alldata2.csv")
+    data_opt = pd.read_csv("./Data/Windrisk.csv")
     data_opt['branch'] = [int(str(i)[-2:]) for i in data_opt['id']]
     data_opt['id'] = [int(str(i)[:-2]) for i in data_opt['id']]
     
