@@ -1,4 +1,60 @@
-# WindRiskGraphing: Interactive Plotting Tool
+# WindRisk
+This repository contains the code to run the stochastic programming models and code to generate figures to present the results. 
+
+# Data processing and stochastic programming
+
+## Overview
+
+There are two python scripts used to create the scenarios used to represent the wind scenarios. The first python script "Create_Wind_Scenarios.py" creates wind scenarios to be used to assess the performance of the optimized solutions. This allows for a standardized examination of the results accross all optimizations irrespective of the frequency and intensity of the optimized solution. The second script "Stochastic_Programming_problem.py" conducts the optimization using selected parameters. 
+
+## Requirements
+
+To use this tool, ensure you have the following Python libraries installed:
+
+- Matplotlib
+- Pandas
+- Numpy
+- random
+- os
+- pyomo
+- copy
+- sqlite3
+- pyutilib
+- argparse
+
+## How to Use
+
+1. Ensure all the required libraries are installed.
+2. Download the entire package to your desktop or virtual machine, additionally download either the databases of the simulations, or the aggregated data (either can be downloaded from....)
+3. The python script to Create_Wind_Scenarios.py can be run, it will generate new files in the ./Data folder.
+4. You can the run the script 'Stochastic_Programming_problem.py' based on the arguments fed to the script. An example script for used to generate results for the interactive ploting tool are included "SP_RUN_BATCH_CVaR.sh" and "SP_RUN_BATCH_NPV.sh".
+5. Running the scripts will generate updated results to the results folder.
+  
+### Parameters in Create_Wind_Scenarios.py:
+
+- `SCEN` (integer): The number of scenarios that will be used to represent the randomness of the wind risk.
+
+### Parameters in Create_Wind_Scenarios.py:
+
+- `V` (integer): The choice of wind frequency and intensity to be used, an integer where 0="Low_High",1="Mod_Mid",2="Mod_Low",3="High_Low",4="Low_Low"'.
+- `P` (float): The salvage price used to value the timber extracted following wind damage.
+- `OPT` (string): The choice of optimization objective, either focus on NPV  "NPV" or a focus on ensuring an even-flow to timber harvested.
+- `INT` (float): The discount rate used in the analysis.
+- `SCEN` (integer): The number of scenarios that will be used to represent the randomness of the wind risk.
+
+## Example Usage
+
+At the command line, in the base folder:
+
+python python/Create_Wind_Scenarios.py --SCEN 100 #this will create new wind scenarios to evaluate the optimized solutions.
+
+To run a large number of optimizations, a scripting tool, using a very large computer would be recommended. We used the CSC computer Puhti, using 2 cpu cores, with 64 Gb of memory to conduct the optimizations for each case. A total of 40 cases were explored. On average, running of a single instance took over 5 hours, with the majority of the time taken in constructing the stochastic programming model.
+
+Example scripts based on a linux bash file can be found in the base ffolder "SP_RUN_BATCH_CVaR.sh" and "SP_RUN_BATCH_NPV.sh"
+
+If adjustments to which scenarios are run, there my be a need to adjust the code for the interactive plotting tool. 
+
+# Graphing: Interactive Plotting Tool
 
 ## Overview
 
