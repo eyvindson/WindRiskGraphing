@@ -94,8 +94,9 @@ if __name__ == "__main__":
     
     path = "/scratch/project_2003638/PLAN_REPLAN/DB/"#ADJUST TO OWN PATH #"c:/mytemp/avohakkutpois/Files_for_optimization/temp/"
     path_cluster = "./Data/"
-    path2 = "/scratch/project_2000611/KYLE/AVO2/Files_for_optimization/"
-    pyutilib.services.TempfileManager.tempdir = path2
+    #OR_path = ""
+    #May be needed to direct where the solver is. 
+    #pyutilib.services.TempfileManager.tempdir = OR_path
     
     VV = [[Low_High,"Low_High"],[Mod_Mid,"Mod_Mid"],[Mod_Low,"Mod_Low"],[High_Low,"High_Low"],[Low_Low,"Low_Low"]][args.V]
     
@@ -111,8 +112,7 @@ if __name__ == "__main__":
             CLUSTER_2 = pd.read_csv(path_cluster+"cluster_2.csv",header=None)
             CLUSTER_3 = pd.read_csv(path_cluster+"cluster_3.csv",header=None)
             
-            
-            for k in range(0,SCENARIOS): ##HERE WE USE 50 Scenarios --- this may need to be made a variable.
+            for k in range(0,SCENARIOS):
                 if k == 0:
                     dat = data_opt[(data_opt['id'].isin(list(CLUSTER_1[0]))) & (data_opt["iteration"] == random.choice(VV[0])) | (data_opt['id'].isin(list(CLUSTER_2[0]))) & (data_opt["iteration"] == random.choice(VV[0]))| (data_opt['id'].isin(list(CLUSTER_3[0]))) & (data_opt["iteration"] == random.choice(VV[0]))]
                     dat['iteration']=k
